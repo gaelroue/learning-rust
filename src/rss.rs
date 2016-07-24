@@ -28,7 +28,13 @@ pub fn rss_parse(data: &Vec<u8>) -> Vec<Post> {
 
     let re = Regex::new(r"<item>[\s\S]*?</item>").unwrap();
 
+    let mut cpt = 0;
     for cap in re.captures_iter(&content) {
+
+        if cpt == 10 {
+            break;
+        }
+
         let item = match cap.at(0) {
             Some(x) => x,
             _ => ""
@@ -46,6 +52,7 @@ pub fn rss_parse(data: &Vec<u8>) -> Vec<Post> {
         };
 
         posts.push(next_post);
+        cpt = cpt + 1;
     }
     posts
 }

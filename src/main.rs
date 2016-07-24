@@ -14,11 +14,11 @@ fn main() {
 
     let rss_list = feed.load_conf(&path);
 
-    let mut handle = Easy::new();
-    let mut data = Vec::new();
-
     for (rss, url) in &rss_list {
-        println!("-------------------- {} -----------------", rss);
+        let mut handle = Easy::new();
+        let mut data = Vec::new();
+
+        println!("\n-------------------- {} -----------------\n", rss);
         handle.url(url).unwrap();
         {
             let mut transfer = handle.transfer();
