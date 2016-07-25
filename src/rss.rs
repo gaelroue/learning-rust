@@ -9,14 +9,14 @@ pub struct Post {
 }
 
 fn xml_parse(data: String, tag: &str) -> String {
-    let pattern = format!(r"(<{}>)(.+?)(</{}>)", tag, tag);
+    let pattern = format!(r"<{}>(.*?)</{}>", tag, tag);
     let re = match Regex::new(&pattern) {
         Ok(re) => re,
         Err(err) => panic!("{}", err),
     };
 
     match re.captures(&data) {
-        Some(cap) => cap.at(2).unwrap_or("").to_string(),
+        Some(cap) => cap.at(1).unwrap_or("").to_string(),
         _ => "".to_string()
     }
 }
